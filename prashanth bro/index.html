@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <img class="loader" src="source.gif" width="150px" height="150px" style="position: fixed;top:45%;left:45%;box-shadow: 0 0 0 1000px rgba(0, 0, 0, .5)">
+    <form class="form-inline display-flex justify-content-center  ">
+    <input id="myInput" class="bankSearch form-control"  type="text" placeholder="Serach here...." value="" style="margin: 10px 100px;">
+  </form>
+    <table style="width:100%;" class="table p-5" id="myTable">
+      <thead class="thead-dark"> 
+        <tr>
+          <th>IFCS</th>
+          <th>BANK NAME</th>
+          <th>branch</th>
+          <th>city</th>
+        </tr>
+      </thead>
+    </table>
+
+    <!-- search filter -->
+    <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        //$("#myTable").css("visiblity","visible");
+        var value = $(this).val().toLowerCase();
+        $("#myTable .search").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
+
+    <!--  end search filter -->
+
+    <script>
+ $(document).ready(function(){
+   var api = "https://vast-shore-74260.herokuapp.com/banks?city=MUMBAI";  
+    $.ajax({
+    method:"GET",
+    url:"https://vast-shore-74260.herokuapp.com/banks?city=MUMBAI",
+    success: function(data) {
+      var res = JSON.stringify(data);
+      var res1 = JSON.parse(res);
+    jQuery.each(res1, function(i, val) {
+              var vali = JSON.stringify(i);
+              var res2 = res1[i];
+          $("table").append("<tr class='search'><td>" + res2["ifsc"] + "</td>" +"<td>"+ res2["bank_name"]  +"</td>"  + "<td>"+ res2["branch"]  +"</td>"+"<td>"+ res2["city"]  +"</td></tr>");
+          $(".loader").hide(300);
+        });
+    },
+    dataType: 'json',
+  });
+});
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
