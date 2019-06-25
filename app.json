@@ -1,0 +1,17 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ],
+  "description": "bank information fetching",
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "test",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
